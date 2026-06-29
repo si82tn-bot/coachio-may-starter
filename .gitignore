@@ -1,0 +1,22 @@
+# ===== BÍ MẬT — KHÔNG BAO GIỜ commit =====
+.openclaw/.env
+.env
+.openclaw/credentials/
+.openclaw/agents/*/agent/auth-profiles.json
+
+# ===== DỮ LIỆU CHẠY (Mây tự sinh — không cần version) =====
+.openclaw/openclaw-runtime.json
+.openclaw/*.sqlite
+.openclaw/*.sqlite-*
+.openclaw/*.log
+.openclaw/logs/
+.openclaw/cache/
+.openclaw/sessions/
+.openclaw/media/
+.openclaw/tmp/
+
+# ===== Rác =====
+**/__pycache__/
+**/*.pyc
+**/node_modules/
+.DS_Store
