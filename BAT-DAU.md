@@ -48,6 +48,9 @@ Hãy giúp mình TỪNG BƯỚC, giải thích ngắn gọn tiếng Việt, và 
    môi trường OPENCLAW_HOME trỏ tới folder coachio-may-starter này.
 4. Tạo file key cho Mây: copy "coachio-may-starter/.openclaw/.env.example" thành ".env",
    rồi HỎI mình dán: DEEPSEEK_API_KEY và TELEGRAM_BOT_TOKEN. Ghi vào .env hộ mình.
+   QUAN TRỌNG: DeepSeek cần đăng ký key vào "auth store" (chỉ .env không đủ) — chạy hộ mình
+   lệnh: "openclaw models auth paste-api-key --provider deepseek" rồi dán key DeepSeek vào.
+   (Chạy từ thư mục OpenClaw, nhớ set OPENCLAW_HOME tới folder Mây trước.)
 5. Mở "coachio-may-starter/.openclaw/openclaw.json": HỎI mình ID Telegram của mình,
    rồi thay TẤT CẢ chỗ ghi "DAN_TELEGRAM_ID_CUA_BAN_VAO_DAY" bằng ID đó (có 2 chỗ:
    trong "allowFrom" và "ownerAllowFrom"). Đây là để Mây chỉ trả lời mình.

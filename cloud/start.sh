@@ -33,5 +33,18 @@ fi
   echo "COACHIO_API_KEY=${COACHIO_API_KEY}"
 } > "$H/.env"
 
+# 4) Provision lần đầu: plugin deepseek + đăng ký key vào AUTH STORE.
+#    DeepSeek V4 là reasoning model → cần plugin @openclaw/deepseek-provider để xử lý
+#    đúng định dạng thinking; và key phải nằm trong auth store (paste-api-key), chỉ .env KHÔNG đủ.
+if [ ! -f "$H/.coachio-provisioned" ]; then
+  echo "[start] cài plugin deepseek…"
+  openclaw plugins install @openclaw/deepseek-provider 2>&1 | tail -2 || true
+  if [ -n "${DEEPSEEK_API_KEY}" ]; then
+    printf '%s\n' "${DEEPSEEK_API_KEY}" | openclaw models auth paste-api-key --provider deepseek 2>&1 | tail -1 || true
+    echo "[start] đã đăng ký auth deepseek vào auth store"
+  fi
+  touch "$H/.coachio-provisioned"
+fi
+
 echo "[start] khởi động gateway…"
 exec openclaw gateway run

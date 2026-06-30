@@ -28,7 +28,7 @@
         "baseUrl": "https://api.deepseek.com",
         "api": "openai-completions",
         "models": [
-          { "id": "deepseek-v4-flash", "name": "DeepSeek V4 Flash", "contextWindow": 131072, "maxTokens": 8192 },
+          { "id": "deepseek-v4-flash", "name": "DeepSeek V4 Flash", "reasoning": true, "contextWindow": 131072, "maxTokens": 8192, "compat": { "thinkingFormat": "deepseek" } },
           { "id": "deepseek-v4-pro", "name": "DeepSeek V4 Pro", "reasoning": true, "contextWindow": 131072, "maxTokens": 8192, "compat": { "thinkingFormat": "deepseek" } }
         ]
       }
@@ -36,6 +36,7 @@
   },
   "plugins": {
     "entries": {
+      "deepseek": { "enabled": true },
       "browser": { "enabled": false },
       "canvas": { "enabled": false },
       "device-pair": { "enabled": false },
