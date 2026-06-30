@@ -8,7 +8,13 @@
 2. ✅ Folder **OpenClaw** (tải từ GitHub về, đã giải nén) — đây là *cái máy*.
 3. ✅ Folder **coachio-may-starter** (cái này) — đây là *linh hồn Mây*.
 
-> Mẹo: để 2 folder ở chỗ dễ tìm, ví dụ trong **Tải về (Downloads)**.
+> **Đặt 2 folder CẠNH NHAU trong cùng 1 chỗ** (vd cùng trong **Tải về / Downloads**), KHÔNG lồng cái nọ vào cái kia:
+> ```
+> 📁 Downloads/
+>    ├── 📁 openclaw/              ← cái máy
+>    └── 📁 coachio-may-starter/   ← não Mây
+> ```
+> ⚠️ Đừng để folder Mây *bên trong* folder OpenClaw — khi cập nhật engine dễ xoá nhầm, mất cấu hình + trí nhớ Mây.
 
 ## Bạn cần (chuẩn bị trước, để dán khi AI hỏi)
 - **DeepSeek API key** (platform.deepseek.com → API Keys)
