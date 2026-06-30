@@ -38,12 +38,15 @@ DEEPSEEK_API_KEY=sk-...
 TELEGRAM_BOT_TOKEN=123456:ABC...
 ```
 
-## Bước 4 — Khai "chủ" của Mây (1 dòng)
-Mở `~/coachio-may/.openclaw/openclaw.json`, sửa đúng **1 chỗ**:
+## Bước 4 — Khai "chủ" của Mây
+Mở `~/coachio-may/.openclaw/openclaw.json`, thay **TẤT CẢ** chỗ ghi `DAN_TELEGRAM_ID_CUA_BAN_VAO_DAY`
+bằng ID Telegram của bạn (có **2 chỗ**: `allowFrom` và `ownerAllowFrom`), vd `123456789`:
 ```json
-"ownerAllowFrom": ["telegram:DAN_TELEGRAM_ID_CUA_BAN_VAO_DAY"]
+"allowFrom": ["123456789"],
+...
+"ownerAllowFrom": ["telegram:123456789"]
 ```
-→ thay bằng ID Telegram của bạn, vd `"telegram:123456789"`. (Để Mây chỉ nghe lời bạn.)
+→ Để Mây **chỉ trả lời bạn** (chặn người lạ), khỏi phải pair thủ công.
 
 ## Bước 5 — Chạy Mây
 ```bash

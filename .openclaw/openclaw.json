@@ -14,7 +14,12 @@
   },
   "gateway": { "mode": "local" },
   "channels": {
-    "telegram": { "enabled": true, "reactionLevel": "minimal" }
+    "telegram": {
+      "enabled": true,
+      "reactionLevel": "minimal",
+      "dmPolicy": "allowlist",
+      "allowFrom": ["DAN_TELEGRAM_ID_CUA_BAN_VAO_DAY"]
+    }
   },
   "commands": { "ownerAllowFrom": ["telegram:DAN_TELEGRAM_ID_CUA_BAN_VAO_DAY"] },
   "models": {
@@ -31,13 +36,11 @@
   },
   "plugins": {
     "entries": {
-      "deepseek": { "enabled": true },
       "browser": { "enabled": false },
       "canvas": { "enabled": false },
       "device-pair": { "enabled": false },
       "phone-control": { "enabled": false },
-      "talk-voice": { "enabled": false },
-      "zalouser": { "enabled": false }
+      "talk-voice": { "enabled": false }
     }
   }
 }

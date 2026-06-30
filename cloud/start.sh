@@ -8,16 +8,19 @@ mkdir -p "$H"
 # 1) Seed openclaw.json + workspace lần đầu (KHÔNG đè để giữ trí nhớ Mây học trên cloud)
 if [ ! -f "$H/openclaw.json" ]; then
   cp /app/seed/openclaw.json "$H/openclaw.json"
-  echo "[start] đã seed openclaw.json"
+  # Sinh gateway token (chỉ lần đầu) — bảo vệ control plane; không commit vào repo
+  GTOK="$(node -e 'console.log(require("crypto").randomBytes(24).toString("hex"))')"
+  node -e 'const f=process.argv[1],t=process.argv[2];const c=require(f);c.gateway=c.gateway||{mode:"local"};c.gateway.auth={mode:"token",token:t};require("fs").writeFileSync(f,JSON.stringify(c,null,2))' "$H/openclaw.json" "$GTOK"
+  echo "[start] đã seed openclaw.json + sinh gateway token"
 fi
 if [ ! -d "$H/workspace" ]; then
   cp -r /app/seed/workspace "$H/workspace"
   echo "[start] đã seed workspace (persona + skills)"
 fi
 
-# 2) Điền owner nếu config còn placeholder và có Variable OWNER_TELEGRAM_ID
+# 2) Điền owner (cả ownerAllowFrom + allowFrom) nếu còn placeholder và có OWNER_TELEGRAM_ID
 if [ -n "${OWNER_TELEGRAM_ID}" ] && grep -q "DAN_TELEGRAM_ID_CUA_BAN_VAO_DAY" "$H/openclaw.json"; then
-  sed -i "s/DAN_TELEGRAM_ID_CUA_BAN_VAO_DAY/${OWNER_TELEGRAM_ID}/" "$H/openclaw.json"
+  sed -i "s/DAN_TELEGRAM_ID_CUA_BAN_VAO_DAY/${OWNER_TELEGRAM_ID}/g" "$H/openclaw.json"
   echo "[start] đã điền owner từ OWNER_TELEGRAM_ID"
 fi
 

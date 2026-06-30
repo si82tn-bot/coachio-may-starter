@@ -48,8 +48,9 @@ Hãy giúp mình TỪNG BƯỚC, giải thích ngắn gọn tiếng Việt, và 
    môi trường OPENCLAW_HOME trỏ tới folder coachio-may-starter này.
 4. Tạo file key cho Mây: copy "coachio-may-starter/.openclaw/.env.example" thành ".env",
    rồi HỎI mình dán: DEEPSEEK_API_KEY và TELEGRAM_BOT_TOKEN. Ghi vào .env hộ mình.
-5. Mở "coachio-may-starter/.openclaw/openclaw.json", tìm dòng "ownerAllowFrom",
-   HỎI mình ID Telegram của mình rồi thay vào (dạng "telegram:123456789").
+5. Mở "coachio-may-starter/.openclaw/openclaw.json": HỎI mình ID Telegram của mình,
+   rồi thay TẤT CẢ chỗ ghi "DAN_TELEGRAM_ID_CUA_BAN_VAO_DAY" bằng ID đó (có 2 chỗ:
+   trong "allowFrom" và "ownerAllowFrom"). Đây là để Mây chỉ trả lời mình.
 6. Tạo cho mình MỘT file chạy nhanh (double-click là chạy Mây): trên Mac là "chay-may.command",
    trên Windows là "chay-may.bat" — đặt trên Desktop. File này phải: set OPENCLAW_HOME trỏ tới
    folder coachio-may-starter, vào folder OpenClaw, rồi chạy "pnpm openclaw gateway run".
