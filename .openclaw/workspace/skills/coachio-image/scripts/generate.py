@@ -24,6 +24,30 @@ MAX_REFS = 5
 AUTO_ONLY_1K = "auto"
 
 
+def _state_dir():
+    """OpenClaw state dir, cross-platform: $OPENCLAW_HOME/.openclaw or ~/.openclaw."""
+    home = os.environ.get("OPENCLAW_HOME") or os.path.expanduser("~")
+    return os.path.join(home, ".openclaw")
+
+
+def _load_env():
+    """Load keys from the state-dir .env so the script works without pre-set env
+    (respects OPENCLAW_HOME → works on Windows/Mac/Linux). Existing env wins."""
+    path = os.path.join(_state_dir(), ".env")
+    if not os.path.isfile(path):
+        return
+    with open(path, encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, val = line.split("=", 1)
+            key = key.strip()
+            val = val.strip().strip('"').strip("'")
+            if key and not os.environ.get(key):
+                os.environ[key] = val
+
+
 def _json_req(url, method="GET", api_key="", body=None):
     data = json.dumps(body).encode() if body is not None else None
     req = urllib.request.Request(url, data=data, method=method)
@@ -75,13 +99,21 @@ def main():
                     help="auto,1:1,5:4,9:16,21:9,16:9,4:3,3:2,4:5,3:4,2:3")
     ap.add_argument("--resolution", default="1k", help="1k, 2k, 4k")
     ap.add_argument("--model", default="gpt_image_2")
-    ap.add_argument("--out", default=None, help="Download result PNG to this path")
+    ap.add_argument("--out", default=None,
+                    help="Save result PNG here (default: <state>/media/coachio-<id>.png)")
     ap.add_argument("--timeout", type=int, default=240)
     args = ap.parse_args()
 
+    _load_env()
     api_key = os.environ.get("COACHIO_API_KEY", "").strip()
     if not api_key:
-        sys.exit("COACHIO_API_KEY not set (put it in ~/.openclaw/.env)")
+        sys.exit("COACHIO_API_KEY chưa có. Thêm dòng COACHIO_API_KEY=... vào "
+                 + os.path.join(_state_dir(), ".env"))
+
+    # Always save a local file so the assistant can send it directly to chat.
+    out_path = args.out or os.path.join(_state_dir(), "media", f"coachio-{uuid.uuid4().hex[:8]}.png")
+    out_path = os.path.abspath(out_path)
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
 
     if args.aspect_ratio == AUTO_ONLY_1K and args.resolution != "1k":
         sys.exit('aspect_ratio "auto" only supports resolution "1k"; pick a fixed ratio for 2k/4k')
@@ -127,10 +159,10 @@ def main():
             if not urls:
                 sys.exit(f"completed but no result_urls: {json.dumps(st)}")
             url = urls[0]
-            if args.out:
-                urllib.request.urlretrieve(url, args.out)
-                print(f"Saved: {args.out}")
-            print(url)
+            urllib.request.urlretrieve(url, out_path)
+            # Clear, machine-readable last line: the local file to send to chat.
+            print(f"URL: {url}")
+            print(f"IMAGE_PATH: {out_path}")
             return
         if status in ("failed", "error"):
             sys.exit(f"task failed: {st.get('error_message') or json.dumps(st)}")

@@ -14,6 +14,25 @@ import tempfile
 import urllib.error
 import urllib.request
 
+
+def _load_env():
+    """Load .env theo OPENCLAW_HOME (Windows/Mac/Linux) rồi tới ~/.openclaw. Env có sẵn thắng."""
+    home = os.environ.get("OPENCLAW_HOME") or os.path.expanduser("~")
+    for path in (os.path.join(home, ".openclaw", ".env"),
+                 os.path.join(os.path.expanduser("~"), ".openclaw", ".env")):
+        if not os.path.isfile(path):
+            continue
+        with open(path, encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                k, v = line.split("=", 1)
+                os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+        return
+
+
+_load_env()
 APIFY_TOKEN = os.environ.get("APIFY_TOKEN") or os.environ.get("APIFY_API_KEY")
 GROQ_KEY = os.environ.get("GROQ_API_KEY")
 

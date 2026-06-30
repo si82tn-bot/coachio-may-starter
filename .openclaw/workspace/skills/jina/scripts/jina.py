@@ -34,16 +34,20 @@ def die(msg, code=1):
 
 
 def load_env():
-    path = os.path.expanduser("~/.openclaw/.env")
-    if not os.path.exists(path):
+    # Theo OPENCLAW_HOME trước (Windows/Mac/Linux), rồi tới ~/.openclaw.
+    home = os.environ.get("OPENCLAW_HOME") or os.path.expanduser("~")
+    for path in (os.path.join(home, ".openclaw", ".env"),
+                 os.path.join(os.path.expanduser("~"), ".openclaw", ".env")):
+        if not os.path.isfile(path):
+            continue
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                k, v = line.split("=", 1)
+                os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
         return
-    with open(path) as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-            k, v = line.split("=", 1)
-            os.environ.setdefault(k.strip(), v.strip())
 
 
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
