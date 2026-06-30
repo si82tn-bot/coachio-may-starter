@@ -13,10 +13,17 @@ if [ ! -f "$H/openclaw.json" ]; then
   node -e 'const f=process.argv[1],t=process.argv[2];const c=require(f);c.gateway=c.gateway||{mode:"local"};c.gateway.auth={mode:"token",token:t};require("fs").writeFileSync(f,JSON.stringify(c,null,2))' "$H/openclaw.json" "$GTOK"
   echo "[start] đã seed openclaw.json + sinh gateway token"
 fi
-if [ ! -d "$H/workspace" ]; then
-  cp -r /app/seed/workspace "$H/workspace"
-  echo "[start] đã seed workspace (persona + skills)"
-fi
+# Refresh "code" (skills + persona tĩnh) MỖI lần deploy để git push tới được bot;
+# GIỮ NGUYÊN USER.md (trí nhớ Mây học về người dùng) + memory.
+mkdir -p "$H/workspace"
+rm -rf "$H/workspace/skills"
+cp -r /app/seed/workspace/skills "$H/workspace/skills"
+for f in SOUL.md AGENTS.md IDENTITY.md; do
+  [ -f "/app/seed/workspace/$f" ] && cp "/app/seed/workspace/$f" "$H/workspace/$f"
+done
+# USER.md: chỉ tạo nếu chưa có (đừng đè trí nhớ đã học)
+[ -f "$H/workspace/USER.md" ] || cp /app/seed/workspace/USER.md "$H/workspace/USER.md"
+echo "[start] refresh skills + persona (giữ USER.md)"
 
 # 2) Owner: LUÔN đồng bộ từ OWNER_TELEGRAM_ID mỗi lần chạy.
 #    (Quan trọng: openclaw.json nằm trên Volume nên KHÔNG seed lại; phải GHI ĐÈ owner ở đây,
