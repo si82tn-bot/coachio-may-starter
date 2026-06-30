@@ -1,7 +1,9 @@
 # Coachio Mây — Bộ khởi đầu (chạy local)
 
-Đây là "linh hồn" của Mây (cấu hình + tính cách + kỹ năng). **Engine OpenClaw lấy riêng từ bản chính thức.**
-Làm theo 5 bước là có Mây riêng chạy trên máy bạn.
+Đây là "linh hồn" của Mây (cấu hình + tính cách + kỹ năng). **Engine OpenClaw lấy riêng.**
+
+> 🌸 **Cách dễ nhất (không gõ lệnh) → đọc [`BAT-DAU.md`](BAT-DAU.md):** mở Antigravity, dán 1 "câu thần chú",
+> AI tự cài + đấu Mây vào + chạy. Phần dưới đây là cách thủ công (cho ai muốn tự làm từng bước).
 
 > Cần trước: **DeepSeek key**, **Telegram bot token** (@BotFather), **ID Telegram của bạn** (@Getmyid_bot),
 > **Node 22+**, **Git**. (Chi tiết chuẩn bị tài khoản xem khoá học Coachio.)
