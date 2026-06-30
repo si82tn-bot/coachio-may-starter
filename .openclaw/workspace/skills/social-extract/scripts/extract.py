@@ -14,6 +14,14 @@ import tempfile
 import urllib.error
 import urllib.request
 
+# Windows: ép UTF-8 cho stdout/stderr (mặc định Windows dùng code page → UnicodeEncodeError
+# với tiếng Việt/emoji/JSON). errors="replace" để không bao giờ crash vì 1 ký tự lạ.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 
 def _load_env():
     """Load .env theo OPENCLAW_HOME (Windows/Mac/Linux) rồi tới ~/.openclaw. Env có sẵn thắng."""

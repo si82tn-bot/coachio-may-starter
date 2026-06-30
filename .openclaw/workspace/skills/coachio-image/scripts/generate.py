@@ -18,6 +18,14 @@ import time
 import urllib.request
 import uuid
 
+# Windows: ép UTF-8 cho stdout/stderr (mặc định Windows dùng code page → UnicodeEncodeError
+# với tiếng Việt/emoji). errors="replace" để không bao giờ crash vì 1 ký tự lạ.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 BASE = "https://api.coachio.ai/api/v1"
 MAX_REFS = 5
 # aspect_ratio "auto" only supports resolution "1k" (Coachio constraint).

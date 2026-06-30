@@ -18,6 +18,14 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+# Windows: ép UTF-8 cho stdout/stderr (mặc định Windows dùng code page → UnicodeEncodeError
+# với tiếng Việt/emoji/JSON). errors="replace" để không bao giờ crash vì 1 ký tự lạ.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 READ_CAP = 9000      # ký tự tối đa khi đọc 1 URL
 SEARCH_CAP = 800     # ký tự nội dung mỗi kết quả search
 DEEP_BUDGET = 50000  # trần token mặc định cho deepresearch (tiết kiệm)
