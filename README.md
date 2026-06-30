@@ -75,3 +75,7 @@ Thấy dòng `telegram … running, connected` → nhắn cho bot Telegram của
 - Lỗi `409 Conflict` = 1 bot chạy 2 nơi → chỉ chạy 1 chỗ.
 
 Xem `SETUP.md` để có các câu lệnh "vibe-code" mẫu (ra lệnh cho Antigravity làm hộ).
+
+## ☁️ Chạy 24/7 trên cloud
+Cùng repo này deploy lên cloud được (chung não Mây). Xem [`HUONG-DAN-LEN-CLOUD.md`](HUONG-DAN-LEN-CLOUD.md):
+đẩy repo lên GitHub → Railway bấm nút → gắn Volume `/data` → điền Variables → Mây chạy 24/7. (Có sẵn `Dockerfile` + `cloud/start.sh`.)

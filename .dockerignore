@@ -1,0 +1,18 @@
+# Bí mật + dữ liệu chạy + rác — không đưa vào image
+.env
+.openclaw/.env
+.openclaw/*.sqlite
+.openclaw/*.sqlite-*
+.openclaw/*.log
+.openclaw/logs/
+.openclaw/cache/
+.openclaw/sessions/
+.openclaw/media/
+.openclaw/tmp/
+.openclaw/credentials/
+.openclaw/agents/
+.git
+**/__pycache__/
+**/*.pyc
+**/node_modules/
+.DS_Store

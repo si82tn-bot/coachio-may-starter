@@ -1,0 +1,23 @@
+# Mây (OpenClaw) trên cloud (Railway/VPS) — chạy 24/7. State trên Volume /data.
+# Dùng chung persona + skills với bản local (cùng thư mục .openclaw/workspace của repo này).
+FROM node:22-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      ca-certificates python3 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Engine OpenClaw từ npm (core không sửa → dùng package; ghim version cho ổn định)
+RUN npm install -g openclaw@2026.6.10
+
+ENV OPENCLAW_HOME=/data
+ENV OPENCLAW_GATEWAY_PORT=18789
+
+WORKDIR /app
+# Seed = đúng não Mây của repo (config + persona + skills generic)
+COPY .openclaw/openclaw.json /app/seed/openclaw.json
+COPY .openclaw/workspace /app/seed/workspace
+COPY cloud/start.sh /app/start.sh
+RUN chmod +x /app/start.sh
+
+EXPOSE 18789
+CMD ["/app/start.sh"]
