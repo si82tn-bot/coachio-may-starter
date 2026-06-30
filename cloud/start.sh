@@ -18,10 +18,12 @@ if [ ! -d "$H/workspace" ]; then
   echo "[start] đã seed workspace (persona + skills)"
 fi
 
-# 2) Điền owner (cả ownerAllowFrom + allowFrom) nếu còn placeholder và có OWNER_TELEGRAM_ID
-if [ -n "${OWNER_TELEGRAM_ID}" ] && grep -q "DAN_TELEGRAM_ID_CUA_BAN_VAO_DAY" "$H/openclaw.json"; then
-  sed -i "s/DAN_TELEGRAM_ID_CUA_BAN_VAO_DAY/${OWNER_TELEGRAM_ID}/g" "$H/openclaw.json"
-  echo "[start] đã điền owner từ OWNER_TELEGRAM_ID"
+# 2) Owner: LUÔN đồng bộ từ OWNER_TELEGRAM_ID mỗi lần chạy.
+#    (Quan trọng: openclaw.json nằm trên Volume nên KHÔNG seed lại; phải GHI ĐÈ owner ở đây,
+#     nếu không thì đổi Variable + redeploy sẽ không có tác dụng — owner kẹt giá trị cũ.)
+if [ -n "${OWNER_TELEGRAM_ID}" ]; then
+  node -e 'const fs=require("fs"),f=process.argv[1],id=process.argv[2];const c=JSON.parse(fs.readFileSync(f,"utf8"));c.channels=c.channels||{};c.channels.telegram=c.channels.telegram||{};c.channels.telegram.dmPolicy="allowlist";c.channels.telegram.allowFrom=[String(id)];c.commands=c.commands||{};c.commands.ownerAllowFrom=["telegram:"+id];fs.writeFileSync(f,JSON.stringify(c,null,2))' "$H/openclaw.json" "${OWNER_TELEGRAM_ID}"
+  echo "[start] owner đồng bộ từ Variable: ${OWNER_TELEGRAM_ID}"
 fi
 
 # 3) .env (state-dir, trusted) — ghi mỗi lần chạy → đổi Variables trên Railway là cập nhật
