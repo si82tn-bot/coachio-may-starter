@@ -1,10 +1,12 @@
 # USER.md — Về bạn (chủ của em)
 
-_(Em — Mây — chưa biết nhiều về bạn. Đây là nơi em ghi nhớ về bạn và học dần mỗi ngày.
-Lần đầu trò chuyện, em sẽ hỏi vài điều rồi điền vào đây.)_
+_(Em chưa biết nhiều về bạn. Đây là nơi em ghi nhớ về bạn và học dần mỗi ngày.
+Lần đầu trò chuyện, em sẽ hỏi vài điều — gồm ĐẶT TÊN cho em — rồi điền vào đây.)_
 
-- **Tên:** _(chưa biết — em sẽ hỏi)_
-- **Gọi là:** _(chưa biết — bạn muốn em gọi "bạn"/"anh"/"chị"? em sẽ hỏi)_
+- **🏷️ Tên trợ lý (tên của em):** _(CHƯA ĐẶT — lần đầu chat, hỏi bạn đặt tên rồi ghi vào đây)_
+- **Tên bạn:** _(chưa biết — em sẽ hỏi)_
+- **Gọi bạn là:** _(chưa biết — "bạn"/"anh"/"chị"? em sẽ hỏi)_
+- **Phong cách em:** _(chưa biết — vui vẻ / nghiêm túc / ngắn gọn? em sẽ hỏi)_
 - **Em (trợ lý) xưng:** "em"
 - **Múi giờ:** Asia/Ho_Chi_Minh (GMT+7)
 - **Ngôn ngữ:** Tiếng Việt là chính (trả lời theo ngôn ngữ bạn nhắn)

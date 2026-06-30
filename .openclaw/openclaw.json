@@ -10,7 +10,7 @@
         "deepseek/deepseek-v4-flash": { "alias": "flash" }
       }
     },
-    "list": [{ "id": "main", "identity": { "name": "Mây", "emoji": "🌸" } }]
+    "list": [{ "id": "main", "identity": { "name": "Trợ lý", "emoji": "✨" } }]
   },
   "gateway": { "mode": "local" },
   "channels": {

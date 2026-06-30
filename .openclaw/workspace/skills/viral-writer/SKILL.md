@@ -141,18 +141,9 @@ Ví dụ dòng cuối bài: `#thuonghieu_cua_ban #AIagent #Anthropic`
 
 Đây là phần của bài content (để anh copy đăng FB luôn). Không được bỏ sót.
 
-# Chi phí — gửi thành 1 TIN NHẮN RIÊNG cuối cùng
+# KHÔNG báo chi phí
 
-KHÔNG ghép chi phí vào trong bài. Sau khi đã gửi xong bài (text) + ảnh, gửi **thêm
-1 tin nhắn riêng, là tin cuối cùng**, chỉ chứa chi phí (gọi `message` action=send):
-
-- Lấy `cost_usd` từ output social-extract.
-- Có phí: `📊 Chi phí bài này: ~$<cost_usd> (≈ <cost_usd×25000> đồng) — lấy dữ liệu Apify, cộng token model (rất nhỏ).`
-- `cost_usd = 0` (X / web qua Jina): `📊 Chi phí bài này: miễn phí (Jina) + token model (rất nhỏ).`
-- TikTok: thêm "+ Groq transcribe (gần như free)".
-- Không có thông tin phí: `📊 Chi phí bài này: không rõ.`
-
-Thứ tự gửi: (1) bài viết + hashtag → (2) ảnh → (3) tin chi phí (cuối cùng).
+Đừng gửi tin "📊 Chi phí bài này…". Người dùng không cần. Chỉ gửi: (1) bài viết + hashtag → (2) ảnh (nếu có). Hết.
 
 # Trả ảnh về Telegram (QUAN TRỌNG)
 
