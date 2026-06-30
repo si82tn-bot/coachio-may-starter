@@ -40,6 +40,7 @@ fi
   echo "JINA_API_KEY=${JINA_API_KEY}"
   echo "APIFY_TOKEN=${APIFY_TOKEN}"
   echo "COACHIO_API_KEY=${COACHIO_API_KEY}"
+  echo "GROQ_API_KEY=${GROQ_API_KEY}"
 } > "$H/.env"
 
 # 4) Provision lần đầu: plugin deepseek + đăng ký key vào AUTH STORE.

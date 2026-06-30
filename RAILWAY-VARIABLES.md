@@ -15,6 +15,7 @@ OWNER_TELEGRAM_ID=
 COACHIO_API_KEY=
 JINA_API_KEY=
 APIFY_TOKEN=
+GROQ_API_KEY=
 ```
 
 > Railway RAW Editor bỏ qua dòng bắt đầu bằng `#`. Nếu phiên bản Railway báo lỗi vì dòng `#`, cứ **xoá các dòng `#`** đi, chỉ giữ các dòng `KEY=`.
@@ -31,6 +32,7 @@ APIFY_TOKEN=
 | `COACHIO_API_KEY` | ⬜ Tuỳ | skill **coachio-image** (tạo ảnh) | Coachio cấp |
 | `JINA_API_KEY` | ⬜ Tuỳ | skill **jina** (đọc web, research) | jina.ai |
 | `APIFY_TOKEN` | ⬜ Tuỳ | skill **social-extract** (đọc FB/IG/TikTok/X) | apify.com |
+| `GROQ_API_KEY` | ⬜ Tuỳ | **transcribe video TikTok** (giọng nói → chữ, qua Groq Whisper) | console.groq.com (free tier) |
 
 ## Lưu ý
 - **Đổi key bất cứ lúc nào:** sửa trong Variables → **Deploy** lại là cập nhật (kể cả `OWNER_TELEGRAM_ID`).
