@@ -1,73 +1,91 @@
-# ☁️ Đưa Mây từ LOCAL lên CLOUD (chạy 24/7, tắt máy vẫn chạy)
+# ☁️ Đưa Mây lên Railway (chạy 24/7) — hướng dẫn từng bước cho người mới
 
-> Tin vui: **không phải làm lại từ đầu.** Mây dùng **chung 1 repo** này cho cả local lẫn cloud.
-> "Não" (persona + skills + cấu hình) giữ nguyên — chỉ **đổi cách chạy** + **nhập lại key** trên cloud.
+> Mây dùng **chung 1 repo** này cho cả local lẫn cloud. Lên cloud = đổi "thân" (Railway chạy thay máy),
+> **không phải làm lại** persona/skill. Toàn bộ thao tác là **bấm nút trên web**, không gõ lệnh.
 
-## Cái gì GIỮ — cái gì ĐỔI
-
-| | Local (đã làm) | Cloud (Railway) |
-|---|---|---|
-| Engine | folder OpenClaw + Antigravity | Docker tự cài `openclaw` (file `Dockerfile` có sẵn trong repo) |
-| Não Mây | `.openclaw/workspace` | **Y HỆT** — copy gì? Không, cùng repo này |
-| Key | file `.openclaw/.env` | **Railway → Variables** (dán lại) |
-| Owner ID | trong `openclaw.json` | có sẵn trong repo, hoặc đặt Variable `OWNER_TELEGRAM_ID` |
-| Bật/tắt | double-click `chay-may` | Railway tự chạy 24/7 |
-
-→ **Copy gì:** không cần copy gì cả (cùng repo). **Đổi gì:** key chuyển vào Railway Variables; tắt Mây ở máy.
+## Cần chuẩn bị (5 phút)
+- ✅ Tài khoản **Railway** (railway.app) — đã có (gói $5).
+- ✅ Tài khoản **GitHub** + bản repo Mây này **trên GitHub của bạn** (xem Bước 0).
+- ✅ 3 thứ bắt buộc: **DeepSeek key**, **Telegram bot token** (@BotFather), **ID Telegram của bạn** (@Getmyid_bot).
 
 ---
 
-## Các bước (thao tác trên web, không gõ lệnh)
+## Bước 0 — Đưa repo Mây về GitHub của BẠN
+Railway chỉ deploy từ repo nằm trong GitHub của chính bạn. Chọn 1 cách:
+- **Cách A (dễ nhất):** mở repo mẫu trên GitHub → bấm **"Use this template" → Create a new repository** → đặt tên (vd `may-cua-toi`), chọn **Private** → Create. Xong, bạn có bản riêng.
+- **Cách B:** **Fork** repo về tài khoản mình.
 
-### 1. Đẩy repo Mây lên GitHub (nếu chưa)
-Repo này (kèm skills bạn đã tự thêm, persona đã chỉnh) đẩy lên GitHub **private**.
-> Nếu lúc local bạn đã chỉnh `openclaw.json` (owner) + thêm skill → nhớ **commit + push** để cloud có bản mới nhất.
-> ⚠️ File `.env` (chứa key) KHÔNG lên GitHub — đã được chặn sẵn. Key sẽ nhập ở bước 3.
-
-### 2. Tạo service trên Railway
-[railway.app](https://railway.app) → **New Project → Deploy from GitHub repo** → chọn repo Mây.
-Railway tự thấy `Dockerfile` và build.
-
-### 3. Đặt Variables (Service → Variables → RAW editor)
-Dán (điền giá trị thật):
-```
-DEEPSEEK_API_KEY=
-TELEGRAM_BOT_TOKEN=
-OWNER_TELEGRAM_ID=
-# tuỳ chọn (skill nào dùng thì điền):
-JINA_API_KEY=
-APIFY_TOKEN=
-COACHIO_API_KEY=
-```
-> `OWNER_TELEGRAM_ID` ở đây để Mây tự điền nếu repo chưa set owner — tiện cho người fork mới.
-
-### 4. Gắn Volume (BẮT BUỘC — để Mây nhớ)
-Service → Settings → **Volumes → New Volume** → Mount path = **`/data`**.
-(Không có Volume = mỗi lần deploy mất hết trí nhớ + lịch sử.)
-
-### 5. Deploy + xem log
-Railway tự deploy. Mở **Deployments → Logs**, thấy:
-`đã seed openclaw.json` → `seed workspace` → `khởi động gateway…` → `telegram … running, connected`.
-
-### 6. ⚠️ TẮT Mây ở máy (tránh xung đột Telegram 409)
-**1 bot Telegram chỉ chạy 1 nơi.** Khi cloud lên → ở máy: đóng cửa sổ `chay-may` (hoặc Ctrl+C).
-> Máy = backup nguội: muốn quay lại máy → tắt service Railway trước, rồi mới chạy lại ở máy.
-
-### 7. Test
-Nhắn bot Telegram → Mây trả lời (từ cloud). Tắt máy → Mây **vẫn chạy**. 🎉
+> File `.env` (chứa key) KHÔNG nằm trong repo — đã chặn sẵn. Key sẽ nhập ở Bước 3 (trên Railway).
 
 ---
 
-## Giới hạn cloud GĐ1 (nói trước)
-- **Không** đăng TikTok/Facebook (cần trình duyệt Chrome) + **không** tạo video (cần TTS local) trên cloud.
-  → để máy làm, hoặc nâng cấp GĐ2 (VPS + Chrome/VNC).
-- Skill cần dịch vụ riêng (n8n/Zalo/funnel…) thì thêm Variable tương ứng + bật skill sau.
+## Bước 1 — Tạo project trên Railway
+1. Vào **railway.app** → đăng nhập.
+2. Bấm **New Project**.
+3. Chọn **Deploy from GitHub repo** → (lần đầu) bấm **Configure GitHub App** để cho Railway thấy repo của bạn → chọn repo Mây.
+4. Railway tự thấy file **`Dockerfile`** và **bắt đầu build**.
 
-## Cập nhật Mây sau này
-- Sửa skill/persona ở máy → `git push` → Railway tự build lại (**state trên Volume giữ nguyên**).
-- Đổi key → sửa Variables trên Railway → Restart (start.sh ghi lại `.env` mỗi lần chạy).
+> 💡 Lần build đầu có thể **đỏ/lỗi** vì chưa có key + chưa có Volume — **bình thường**, làm tiếp Bước 2-3 rồi deploy lại là xanh.
 
-## Lưu ý kỹ thuật
-- `Dockerfile` đã ghim `openclaw@2026.6.10`. Nâng version: sửa số đó → push → rebuild.
-- Lần đầu seed từ image vào Volume; các lần sau **không đè** workspace (giữ trí nhớ Mây học trên cloud).
-- (Bản Docker chưa build thử trực tiếp — lần deploy đầu là lần chạy thật đầu tiên; xem log nếu lỗi.)
+---
+
+## Bước 2 — Gắn Volume (để Mây NHỚ — BẮT BUỘC)
+Không có Volume = mỗi lần deploy Mây **mất sạch** cấu hình + trí nhớ + lịch sử.
+1. Bấm vào **service** (ô vuông tên repo) → tab **Settings** (hoặc chuột phải service → **Attach Volume**).
+2. Mục **Volumes → + New Volume** (hoặc Add Volume).
+3. **Mount path** điền đúng: **`/data`** → Save.
+
+---
+
+## Bước 3 — Nhập KEY (Variables)
+1. Vào service → tab **Variables** → bấm **RAW Editor** (hoặc + New Variable từng cái).
+2. Dán theo mẫu này, **điền giá trị thật**:
+```
+DEEPSEEK_API_KEY=sk-...
+TELEGRAM_BOT_TOKEN=123456:ABC...
+OWNER_TELEGRAM_ID=123456789
+```
+3. (Tuỳ chọn) Skill nào dùng thì thêm: `JINA_API_KEY`, `APIFY_TOKEN`, `COACHIO_API_KEY`.
+4. Bấm **Deploy** (Railway tự deploy lại với key mới).
+
+> `OWNER_TELEGRAM_ID` = **ID Telegram cá nhân của bạn** (số từ @Getmyid_bot), KHÔNG phải số đầu của bot token.
+
+---
+
+## Bước 4 — Xem log để biết Mây đã lên
+Vào service → tab **Deployments → View Logs**. Đợi tới khi thấy lần lượt:
+```
+[start] đã seed openclaw.json + sinh gateway token
+[start] cài plugin deepseek…   → Installed plugin: deepseek
+[start] đã đăng ký auth deepseek vào auth store
+[start] khởi động gateway…
+[telegram] [default] starting provider (@<tên bot của bạn>)
+```
+Thấy dòng `starting provider (@bot...)` = **Mây đã online trên cloud** 🎉
+
+---
+
+## Bước 5 — ⚠️ TẮT Mây ở máy (tránh xung đột Telegram 409)
+**1 bot Telegram chỉ chạy được 1 nơi.** Khi cloud đã lên:
+- Nếu dùng **cùng 1 bot** với máy → **tắt Mây trên máy** (đóng cửa sổ chạy / tắt dịch vụ nền). Không tắt → cả 2 đánh nhau, Mây chập chờn.
+- Hoặc khi **test**: dùng **1 bot Telegram khác** cho cloud để máy vẫn chạy bot cũ song song.
+
+---
+
+## Bước 6 — Test
+Nhắn cho bot Telegram → Mây trả lời (từ cloud). **Tắt máy tính → Mây vẫn chạy.** Thử: "tạo ảnh con mèo", "đọc link web".
+
+---
+
+## 💰 Lưu ý gói $5 Railway
+- Mây GĐ1 (chat + skill nhẹ) ngốn ~**0.5GB RAM**, chạy 24/7. Railway tính tiền theo dùng → khoảng **$5-8/tháng**. Gói $5 đủ để **test gần hết 1 tháng**.
+- Theo dõi ở tab **Usage** trên Railway. Gần hết thì nạp thêm hoặc tắt bớt.
+- **KHÔNG bật phần nặng (đăng TikTok/FB + video)** trên Railway $5 — cái đó cần RAM/CPU lớn hơn nhiều (để VPS riêng).
+
+## 🔄 Cập nhật Mây sau này
+- Sửa skill/persona ở máy → `git push` → Railway **tự build lại** (state trên Volume giữ nguyên).
+- Đổi key → sửa **Variables** trên Railway → Redeploy.
+- Nâng version engine: sửa số `openclaw@...` trong `Dockerfile` → push.
+
+## Giới hạn GĐ1 (nói trước)
+Không đăng TikTok/FB + không tạo video trên cloud (cần Chrome/TTS). Cái đó để máy làm, hoặc VPS riêng (GĐ2).
