@@ -38,15 +38,12 @@ Không có Volume = mỗi lần deploy Mây **mất sạch** cấu hình + trí 
 ---
 
 ## Bước 3 — Nhập KEY (Variables)
-1. Vào service → tab **Variables** → bấm **RAW Editor** (hoặc + New Variable từng cái).
-2. Dán theo mẫu này, **điền giá trị thật**:
-```
-DEEPSEEK_API_KEY=sk-...
-TELEGRAM_BOT_TOKEN=123456:ABC...
-OWNER_TELEGRAM_ID=123456789
-```
-3. (Tuỳ chọn) Skill nào dùng thì thêm: `JINA_API_KEY`, `APIFY_TOKEN`, `COACHIO_API_KEY`.
-4. Bấm **Deploy** (Railway tự deploy lại với key mới).
+**Khỏi nhớ tên key** — mở file [`RAILWAY-VARIABLES.md`](RAILWAY-VARIABLES.md), **copy nguyên khối** rồi:
+1. Vào service → tab **Variables** → bấm **RAW Editor**.
+2. **Dán** khối đó vào → điền giá trị thật sau dấu `=` (3 cái bắt buộc: DeepSeek, Telegram token, ID của bạn).
+3. Bấm **Deploy** (Railway tự deploy lại với key mới).
+
+> Bảng giải thích từng key + nơi lấy nằm trong `RAILWAY-VARIABLES.md`.
 
 > `OWNER_TELEGRAM_ID` = **ID Telegram cá nhân của bạn** (số từ @Getmyid_bot), KHÔNG phải số đầu của bot token.
 

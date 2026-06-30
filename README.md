@@ -82,3 +82,5 @@ Xem `SETUP.md` để có các câu lệnh "vibe-code" mẫu (ra lệnh cho Antig
 ## ☁️ Chạy 24/7 trên cloud
 Cùng repo này deploy lên cloud được (chung não Mây). Xem [`HUONG-DAN-LEN-CLOUD.md`](HUONG-DAN-LEN-CLOUD.md):
 đẩy repo lên GitHub → Railway bấm nút → gắn Volume `/data` → điền Variables → Mây chạy 24/7. (Có sẵn `Dockerfile` + `cloud/start.sh`.)
+- **Variables copy-paste sẵn:** [`RAILWAY-VARIABLES.md`](RAILWAY-VARIABLES.md) (khỏi nhớ tên key)
+- **Checklist test + khai thác Railway:** [`TEST-RAILWAY.md`](TEST-RAILWAY.md)
