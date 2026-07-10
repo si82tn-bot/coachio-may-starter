@@ -2,6 +2,8 @@
 
 Đây là "linh hồn" của Mây (cấu hình + tính cách + kỹ năng). **Engine OpenClaw lấy riêng.**
 
+> 📘 **Người mới, không biết code → đọc [`HUONG-DAN-DAY-DU.md`](HUONG-DAN-DAY-DU.md)** (tài liệu tổng: Antigravity + Railway + Telegram + pairing, từng bước).
+
 > 🌸 **Cách dễ nhất (không gõ lệnh) → đọc [`BAT-DAU.md`](BAT-DAU.md):** mở Antigravity, dán 1 "câu thần chú",
 > AI tự cài + đấu Mây vào + chạy. Phần dưới đây là cách thủ công (cho ai muốn tự làm từng bước).
 
