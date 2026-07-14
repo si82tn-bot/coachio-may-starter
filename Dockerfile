@@ -11,8 +11,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Engine OpenClaw từ npm (core không sửa → dùng package; ghim version cho ổn định)
-# 2026.7.2 = tối thiểu để @openclaw/deepseek-provider hoạt động (plugin yêu cầu pluginApi >=2026.7.2)
-RUN npm install -g openclaw@2026.7.2
+# 2026.7.1 = bản mới nhất đã publish trên npm, thoả yêu cầu compat của @openclaw/deepseek-provider
+# (kiểm tra qua registry.npmjs.org — ĐỪNG ghim version chưa được publish, build sẽ fail)
+RUN npm install -g openclaw@2026.7.1
 
 ENV OPENCLAW_HOME=/data
 ENV OPENCLAW_GATEWAY_PORT=18789
