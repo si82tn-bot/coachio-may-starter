@@ -43,17 +43,18 @@ fi
   echo "GROQ_API_KEY=${GROQ_API_KEY}"
 } > "$H/.env"
 
-# 4) Provision lần đầu: plugin deepseek + đăng ký key vào AUTH STORE.
+# 4) Provision: plugin deepseek + đăng ký key vào AUTH STORE — LUÔN chạy mỗi lần boot
+#    (KHÔNG gate bằng file marker: nếu gate, lần đầu lỡ fail (vd engine version chưa tương thích)
+#    thì marker vẫn được tạo → auth store kẹt ở trạng thái hỏng vĩnh viễn dù sau này fix version/key).
 #    DeepSeek V4 là reasoning model → cần plugin @openclaw/deepseek-provider để xử lý
 #    đúng định dạng thinking; và key phải nằm trong auth store (paste-api-key), chỉ .env KHÔNG đủ.
-if [ ! -f "$H/.coachio-provisioned" ]; then
-  echo "[start] cài plugin deepseek…"
-  openclaw plugins install @openclaw/deepseek-provider 2>&1 | tail -2 || true
-  if [ -n "${DEEPSEEK_API_KEY}" ]; then
-    printf '%s\n' "${DEEPSEEK_API_KEY}" | openclaw models auth paste-api-key --provider deepseek 2>&1 | tail -1 || true
-    echo "[start] đã đăng ký auth deepseek vào auth store"
-  fi
-  touch "$H/.coachio-provisioned"
+#    Cả 2 lệnh đều idempotent (an toàn chạy lại) nên chạy mỗi boot cũng đảm bảo đổi
+#    DEEPSEEK_API_KEY trên Variables + Deploy lại luôn có tác dụng ngay.
+echo "[start] cài plugin deepseek…"
+openclaw plugins install @openclaw/deepseek-provider 2>&1 | tail -2 || true
+if [ -n "${DEEPSEEK_API_KEY}" ]; then
+  printf '%s\n' "${DEEPSEEK_API_KEY}" | openclaw models auth paste-api-key --provider deepseek 2>&1 | tail -1 || true
+  echo "[start] đã đăng ký auth deepseek vào auth store"
 fi
 
 echo "[start] khởi động gateway…"
