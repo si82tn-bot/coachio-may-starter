@@ -1,5 +1,6 @@
 # Bí mật + dữ liệu chạy + rác — không đưa vào image
 .env
+**/.env
 .openclaw/.env
 .openclaw/*.sqlite
 .openclaw/*.sqlite-*

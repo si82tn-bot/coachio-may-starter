@@ -1,0 +1,25 @@
+# Chạy Mây trên VPS (Oracle Cloud Always Free hoặc bất kỳ máy Linux có Docker).
+# Dùng CHUNG Dockerfile + cloud/start.sh với Railway → hành vi giống hệt.
+# Lệnh (trong thư mục oracle/):  docker compose up -d --build
+services:
+  coachio:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: coachio-may:latest
+    container_name: coachio
+    env_file: .env            # key bí mật — copy từ .env.example, KHÔNG commit
+    volumes:
+      - coachio-data:/data    # trí nhớ + config + plugin (giống Volume /data trên Railway)
+    ports:
+      # Chỉ mở cho chính máy chủ (control UI). Muốn xem từ máy bạn: ssh -L 18789:localhost:18789 ...
+      - "127.0.0.1:18789:18789"
+    restart: unless-stopped   # tự chạy lại khi crash / khi máy chủ reboot
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"       # tránh log đầy ổ đĩa
+        max-file: "3"
+
+volumes:
+  coachio-data:

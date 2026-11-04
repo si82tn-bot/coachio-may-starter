@@ -86,3 +86,4 @@ Cùng repo này deploy lên cloud được (chung não Mây). Xem [`HUONG-DAN-LE
 đẩy repo lên GitHub → Railway bấm nút → gắn Volume `/data` → điền Variables → Mây chạy 24/7. (Có sẵn `Dockerfile` + `cloud/start.sh`.)
 - **Variables copy-paste sẵn:** [`RAILWAY-VARIABLES.md`](RAILWAY-VARIABLES.md) (khỏi nhớ tên key)
 - **Checklist test + khai thác Railway:** [`TEST-RAILWAY.md`](TEST-RAILWAY.md)
+- **Miễn phí 0đ thay Railway — Oracle Cloud Always Free:** [`HUONG-DAN-ORACLE.md`](HUONG-DAN-ORACLE.md) (tự quản máy chủ, copy–paste từng bước)
