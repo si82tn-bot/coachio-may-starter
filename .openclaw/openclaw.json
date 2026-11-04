@@ -2,10 +2,12 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "deepseek/deepseek-v4-flash",
-        "fallbacks": ["deepseek/deepseek-v4-pro"]
+        "primary": "google/gemini-3.8-flash",
+        "fallbacks": ["google/gemini-3.5-flash"]
       },
       "models": {
+        "google/gemini-3.8-flash": { "alias": "gemini" },
+        "google/gemini-3.5-flash": { "alias": "gemini35" },
         "deepseek/deepseek-v4-pro": { "alias": "pro" },
         "deepseek/deepseek-v4-flash": { "alias": "flash" }
       }
@@ -36,7 +38,6 @@
   },
   "plugins": {
     "entries": {
-      "deepseek": { "enabled": true },
       "browser": { "enabled": false },
       "canvas": { "enabled": false },
       "device-pair": { "enabled": false },
