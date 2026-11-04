@@ -40,7 +40,7 @@ fi
 #     Model google/* được KHAI BÁO TƯỜNG MINH vào models.providers.google để dùng được cả model
 #     mới hơn catalog của engine 2026.7.1 (vd gemini-3.8-flash) — thiếu api/baseUrl engine sẽ gọi nhầm OpenAI.
 AI_MODEL="${AI_MODEL:-google/gemini-3.8-flash}"
-AI_FALLBACKS="${AI_FALLBACKS:-google/gemini-3.5-flash}"
+AI_FALLBACKS="${AI_FALLBACKS:-google/gemini-3.5-flash-lite}"
 [ "$AI_FALLBACKS" = "none" ] && AI_FALLBACKS=""
 node -e 'const fs=require("fs"),f=process.argv[1],p=process.argv[2],fb=process.argv[3].split(",").map(s=>s.trim()).filter(Boolean);const c=JSON.parse(fs.readFileSync(f,"utf8"));const d=((c.agents=c.agents||{}).defaults=c.agents.defaults||{});d.model={primary:p,fallbacks:fb};d.models=d.models||{};for(const m of [p,...fb])d.models[m]=d.models[m]||{};const ds=[p,...fb].some(m=>m.startsWith("deepseek/"));const pe=((c.plugins=c.plugins||{}).entries=c.plugins.entries||{});const pv=((c.models=c.models||{}).providers=c.models.providers||{});if(ds){pe.deepseek={enabled:true};pv.deepseek=JSON.parse(fs.readFileSync(process.argv[4],"utf8")).models.providers.deepseek}else{delete pe.deepseek;delete pv.deepseek;for(const k of Object.keys(d.models))if(k.startsWith("deepseek/"))delete d.models[k]}const g=[p,...fb].filter(m=>m.startsWith("google/")).map(m=>m.slice(7));if(g.length)pv.google={baseUrl:"https://generativelanguage.googleapis.com/v1beta",api:"google-generative-ai",models:g.map(id=>({id,name:id,reasoning:true,input:["text","image"],contextWindow:1048576,maxTokens:65536}))};else delete pv.google;fs.writeFileSync(f,JSON.stringify(c,null,2))' "$H/openclaw.json" "$AI_MODEL" "$AI_FALLBACKS" /app/seed/openclaw.json
 echo "[start] model: $AI_MODEL (dự phòng: ${AI_FALLBACKS:-không})"

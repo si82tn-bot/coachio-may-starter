@@ -31,14 +31,14 @@ DEEPSEEK_API_KEY=
 
 | Variable | Bắt buộc? | Dùng cho | Lấy ở đâu |
 |---|---|---|---|
-| `GEMINI_API_KEY` | ✅ Có | Bộ não chat của Mây (mặc định Gemini 3.8 Flash, dự phòng 3.5 Flash) | aistudio.google.com → Get API key. **Miễn phí nếu project của key CHƯA bật Billing** |
+| `GEMINI_API_KEY` | ✅ Có | Bộ não chat của Mây (mặc định Gemini 3.8 Flash, dự phòng 3.5 Flash-Lite) | aistudio.google.com → Get API key. **Miễn phí nếu project của key CHƯA bật Billing** |
 | `TELEGRAM_BOT_TOKEN` | ✅ Có | Con bot Telegram | Chat **@BotFather** → `/newbot` |
 | `OWNER_TELEGRAM_ID` | ✅ Có | Để Mây **chỉ nghe bạn** (số ID cá nhân, KHÔNG phải số của bot) | Chat **@Getmyid_bot** → Start |
 | `COACHIO_API_KEY` | ⬜ Tuỳ | skill **coachio-image** (tạo ảnh) | Coachio cấp |
 | `JINA_API_KEY` | ⬜ Tuỳ | skill **jina** (đọc web, research) | jina.ai |
 | `APIFY_TOKEN` | ⬜ Tuỳ | skill **social-extract** (đọc FB/IG/TikTok/X) | apify.com |
 | `AI_MODEL` | ⬜ Tuỳ | Đổi model chính, vd `deepseek/deepseek-v4-flash`. Trống = `google/gemini-3.8-flash` | — |
-| `AI_FALLBACKS` | ⬜ Tuỳ | Model dự phòng, cách nhau dấu phẩy; `none` = không dự phòng. Trống = `google/gemini-3.5-flash` | — |
+| `AI_FALLBACKS` | ⬜ Tuỳ | Model dự phòng, cách nhau dấu phẩy; `none` = không dự phòng. Trống = `google/gemini-3.5-flash-lite` | — |
 | `DEEPSEEK_API_KEY` | ⬜ Tuỳ | Chỉ cần khi `AI_MODEL`/`AI_FALLBACKS` dùng `deepseek/...` (tính phí theo token) | platform.deepseek.com → API Keys |
 | `GROQ_API_KEY` | ⬜ Tuỳ | **transcribe video TikTok** (giọng nói → chữ, qua Groq Whisper) | console.groq.com (free tier) |
 
